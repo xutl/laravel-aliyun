@@ -22,15 +22,17 @@ class AliyunServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->registerConfig();
+        $this->setupConfig();
+
+        $this->app->singleton('aliyun', function () {
+            return new AliyunManage($this->app);
+        });
     }
 
     /**
-     * Register the configuration.
-     *
-     * @return void
+     * Setup the config.
      */
-    protected function registerConfig()
+    protected function setupConfig()
     {
         $source = realpath($raw = __DIR__ . '/../config/aliyun.php') ?: $raw;
 
@@ -39,5 +41,7 @@ class AliyunServiceProvider extends ServiceProvider
                 $source => config_path('aliyun.php'),
             ], 'aliyun-config');
         }
+
+        $this->mergeConfigFrom($source, 'aliyun');
     }
 }
