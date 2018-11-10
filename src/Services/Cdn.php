@@ -7,8 +7,10 @@
 
 namespace XuTL\Aliyun\Services;
 
-
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
 use XuTL\Aliyun\AliyunInterface;
+use XuTL\Aliyun\Subscriber\Rpc;
 
 /**
  * Class CDN
@@ -17,5 +19,25 @@ use XuTL\Aliyun\AliyunInterface;
  */
 class Cdn implements AliyunInterface
 {
+    private $accessId;
+    private $accessSecret;
+
+    /**
+     * Cdn constructor.
+     */
+    public function __construct($config)
+    {
+        $stack = HandlerStack::create();
+        $middleware = new Rpc([
+            'accessKeyId' => $config,
+            'accessSecret' => $config,
+        ]);
+        $stack->push($middleware);
+    }
+
+    public function getClient()
+    {
+
+    }
 
 }

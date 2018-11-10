@@ -16,10 +16,6 @@ use Illuminate\Support\ServiceProvider;
  */
 class AliyunServiceProvider extends ServiceProvider
 {
-    public function boot()
-    {
-    }
-
     public function register()
     {
         $this->setupConfig();

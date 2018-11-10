@@ -8,7 +8,11 @@ namespace XuTL\Aliyun\Subscriber;
 
 use Psr\Http\Message\RequestInterface;
 
-
+/**
+ * Class Rpc
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ */
 class Rpc
 {
     /** @var array Configuration settings */
