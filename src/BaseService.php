@@ -295,6 +295,6 @@ class BaseService implements AliyunInterface
             $params = (array)$arguments[0];
         }
         $params['Action'] = $action;
-        return $this->post('',$params);
+        return $this->post('', $params);
     }
 }

@@ -86,7 +86,7 @@ class AliyunManage
      * @param  string $name
      * @return AliyunInterface
      */
-    protected function get($name)
+    public function get($name)
     {
         return $this->services[$name] ?? $this->resolve($name);
     }

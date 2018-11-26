@@ -35,6 +35,7 @@ class RpcStack
             }
         }
     }
+
     /**
      * Called when the middleware is handled.
      *
@@ -49,6 +50,7 @@ class RpcStack
             return $handler($request, $options);
         };
     }
+
     /**
      * 请求前调用
      * @param RequestInterface $request
@@ -56,7 +58,13 @@ class RpcStack
      */
     private function onBefore(RequestInterface $request)
     {
-        $params = \GuzzleHttp\Psr7\parse_query($request->getUri()->getQuery());
+        if ($request->getMethod() == 'POST') {
+            $params = [];
+            parse_str($request->getBody()->getContents(), $params);
+        } else {
+            $params = \GuzzleHttp\Psr7\parse_query($request->getUri()->getQuery());
+        }
+
         $params['Version'] = $this->config['Version'];
         $params['Format'] = 'JSON';
         $params['AccessKeyId'] = $this->config['accessKeyId'];
@@ -70,10 +78,15 @@ class RpcStack
         //签名
         $params['Signature'] = $this->getSignature($request, $params);
         $query = \GuzzleHttp\Psr7\build_query($params);
-        /** @var RequestInterface $request */
-        $request = $request->withUri($request->getUri()->withQuery($query));
+        if ($request->getMethod() == 'POST') {
+            $request->withBody($query);
+        } else {
+            /** @var RequestInterface $request */
+            $request = $request->withUri($request->getUri()->withQuery($query));
+        }
         return $request;
     }
+
     /**
      * Creates the Signature Base String.
      *
@@ -95,6 +108,7 @@ class RpcStack
             . '&' . rawurlencode($url)
             . '&' . rawurlencode($query);
     }
+
     /**
      * Calculate signature for request
      *
@@ -113,6 +127,7 @@ class RpcStack
         $source = $request->getMethod() . '&%2F&' . $this->percentEncode($query);
         return base64_encode(hash_hmac('sha1', $source, $this->config['accessSecret'] . '&', true));
     }
+
     protected function percentEncode($str)
     {
         $res = urlencode($str);

@@ -5,6 +5,9 @@
   "type": "library",
   "license": "MIT",
   "require": {
+    "ext-simplexml": "*",
+    "ext-dom": "*",
+    "ext-json": "*",
     "guzzlehttp/guzzle": "^6.3"
   },
   "autoload": {
@@ -19,7 +22,10 @@
     "laravel": {
       "providers": [
         "XuTL\\Aliyun\\AliyunServiceProvider"
-      ]
+      ],
+      "aliases": {
+        "Aliyun": "XuTL\\Aliyun\\Aliyun"
+      }
     }
   },
   "prefer-stable": true
