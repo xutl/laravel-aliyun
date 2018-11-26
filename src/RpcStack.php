@@ -79,7 +79,7 @@ class RpcStack
         $params['Signature'] = $this->getSignature($request, $params);
         $query = \GuzzleHttp\Psr7\build_query($params);
         if ($request->getMethod() == 'POST') {
-            $request->withBody($query);
+            $request->withBody(\GuzzleHttp\Psr7\stream_for($query));
         } else {
             /** @var RequestInterface $request */
             $request = $request->withUri($request->getUri()->withQuery($query));
