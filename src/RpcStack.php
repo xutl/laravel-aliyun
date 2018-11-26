@@ -4,7 +4,8 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
-namespace XuTL\Aliyun\Subscriber;
+
+namespace XuTL\Aliyun;
 
 use Psr\Http\Message\RequestInterface;
 
@@ -13,7 +14,7 @@ use Psr\Http\Message\RequestInterface;
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class Rpc
+class RpcStack
 {
     /** @var array Configuration settings */
     private $config = [
