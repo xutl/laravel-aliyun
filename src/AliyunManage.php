@@ -10,6 +10,7 @@ namespace XuTL\Aliyun;
 use Closure;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
+use XuTL\Aliyun\Services\Cdn;
 
 /**
  * Class Aliyun
@@ -24,6 +25,16 @@ class AliyunManage
      * @var \Illuminate\Contracts\Foundation\Application
      */
     protected $app;
+
+    /**
+     * @var string 阿里云AccessKey ID
+     */
+    protected $accessId;
+
+    /**
+     * @var string AccessKey
+     */
+    protected $accessKey;
 
     /**
      * The array of resolved services drivers.
@@ -48,6 +59,8 @@ class AliyunManage
     public function __construct($app)
     {
         $this->app = $app;
+        $this->accessId = $this->app['config']["aliyun.access_id"];
+        $this->accessKey = $this->app['config']["aliyun.access_key"];
     }
 
     /**
@@ -58,7 +71,14 @@ class AliyunManage
      */
     protected function getConfig($name)
     {
-        return $this->app['config']["aliyun.services.{$name}"];
+        $config = $this->app['config']["aliyun.services.{$name}"];
+        if (empty ($config['access_id'])) {
+            $config['access_id'] = $this->accessId;
+        }
+        if (empty ($config['access_key'])) {
+            $config['access_key'] = $this->accessKey;
+        }
+        return $config;
     }
 
     /**
@@ -134,7 +154,6 @@ class AliyunManage
     public function extend($driver, Closure $callback)
     {
         $this->customCreators[$driver] = $callback;
-
         return $this;
     }
 
