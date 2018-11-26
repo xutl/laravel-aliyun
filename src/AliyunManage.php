@@ -8,7 +8,6 @@
 namespace XuTL\Aliyun;
 
 use Closure;
-use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use XuTL\Aliyun\Services\Cdn;
 
@@ -137,11 +136,7 @@ class AliyunManage
      */
     public function createCdnService(array $config)
     {
-        $client = new Cdn($config['endpoint'], [
-            'username' => $config['username'], 'apiKey' => $config['key'],
-        ], $config['options'] ?? []);
-
-        return $client;
+        return new Cdn(['accessId' => $config['access_id'], 'accessKey' => $config['access_key']]);
     }
 
     /**
