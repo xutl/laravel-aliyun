@@ -142,17 +142,21 @@ class AliyunManage
     }
 
     /**
-     * 创建 CloudPush服务
+     * 创建 CloudPush 服务
      * @param array $config
      * @return CloudPush
      */
     public function createCloudPushService(array $config)
     {
-        return new CloudPush(['accessId' => $config['access_id'], 'accessKey' => $config['access_key']]);
+        return new CloudPush([
+            'accessId' => $config['access_id'],
+            'accessKey' => $config['access_key'],
+            'regionId' => $config['region_id'] ?? 'cn-hangzhou',
+        ]);
     }
 
     /**
-     * 创建 CloudPush服务
+     * 创建 MNS 服务
      * @param array $config
      * @return Mns
      */

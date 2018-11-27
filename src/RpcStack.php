@@ -65,7 +65,7 @@ class RpcStack
             $params = \GuzzleHttp\Psr7\parse_query($request->getUri()->getQuery());
         }
 
-        $params['Version'] = $this->config['Version'];
+        $params['Version'] = $this->config['version'];
         $params['Format'] = 'JSON';
         $params['AccessKeyId'] = $this->config['accessKeyId'];
         $params['SignatureMethod'] = $this->config['signatureMethod'];
@@ -77,10 +77,11 @@ class RpcStack
         }
         //签名
         $params['Signature'] = $this->getSignature($request, $params);
+        $body = http_build_query($params, '', '&');
         if ($request->getMethod() == 'POST') {
-            $request = \GuzzleHttp\Psr7\modify_request($request, ['body' => http_build_query($params, '', '&')]);
+            $request = \GuzzleHttp\Psr7\modify_request($request, ['body' => $body]);
         } else {
-            $request = \GuzzleHttp\Psr7\modify_request($request, ['query' => $params]);
+            $request = \GuzzleHttp\Psr7\modify_request($request, ['query' => $body]);
         }
         return $request;
     }

@@ -123,7 +123,7 @@ class Cdn extends BaseService
         $middleware = new RpcStack([
             'accessKeyId' => $this->accessId,
             'accessSecret' => $this->accessKey,
-            'Version' => '2018-05-10',
+            'version' => '2018-05-10',
         ]);
         $stack->push($middleware);
         return $stack;

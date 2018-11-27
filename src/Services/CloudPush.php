@@ -52,6 +52,11 @@ use XuTL\Aliyun\RpcStack;
 class CloudPush extends BaseService
 {
     /**
+     * @var string 区域ID
+     */
+    protected $regionId = 'cn-hangzhou';
+
+    /**
      * @return string
      */
     public function getBaseUri()
@@ -68,7 +73,8 @@ class CloudPush extends BaseService
         $middleware = new RpcStack([
             'accessKeyId' => $this->accessId,
             'accessSecret' => $this->accessKey,
-            'Version' => '2018-03-24',
+            'regionId' => $this->regionId,
+            'version' => '2016-08-01',
         ]);
         $stack->push($middleware);
         return $stack;
