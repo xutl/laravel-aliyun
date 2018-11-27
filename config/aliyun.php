@@ -12,7 +12,7 @@ return [
         ],
         'mns' => [
             'driver' => 'mns',
-            'endpoint' => 'http://1742858278389325.mns.cn-hangzhou.aliyuncs.com/',
+            'endpoint' => 'http://132456.mns.cn-hangzhou.aliyuncs.com/',
             'access_id' => env('ALIYUN_ACCESS_ID'),
             'access_key' => env('ALIYUN_ACCESS_KEY'),
             'securityToken' => null
