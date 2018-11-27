@@ -159,7 +159,7 @@ class AliyunManage
     public function createMnsService(array $config)
     {
         return new Mns([
-            'endPoint' => $config['endpoint'],
+            'endpoint' => $config['endpoint'],
             'accessId' => $config['access_id'],
             'accessKey' => $config['access_key'],
             'securityToken' => $config['securityToken'] ?? null,
