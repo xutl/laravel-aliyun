@@ -77,12 +77,10 @@ class RpcStack
         }
         //签名
         $params['Signature'] = $this->getSignature($request, $params);
-        $query = \GuzzleHttp\Psr7\build_query($params);
         if ($request->getMethod() == 'POST') {
-            $request->withBody(\GuzzleHttp\Psr7\stream_for($query));
+            $request = \GuzzleHttp\Psr7\modify_request($request, ['body' => http_build_query($params, '', '&')]);
         } else {
-            /** @var RequestInterface $request */
-            $request = $request->withUri($request->getUri()->withQuery($query));
+            $request = \GuzzleHttp\Psr7\modify_request($request, ['query' => $params]);
         }
         return $request;
     }
