@@ -38,7 +38,7 @@ class AliyunManage
     /**
      * The array of resolved services drivers.
      *
-     * @var array
+     * @var AliyunInterface[]
      */
     protected $services = [];
 
