@@ -10,6 +10,8 @@ namespace XuTL\Aliyun;
 use Closure;
 use InvalidArgumentException;
 use XuTL\Aliyun\Services\Cdn;
+use XuTL\Aliyun\Services\CloudPush;
+use XuTL\Aliyun\Services\Mns;
 
 /**
  * Class Aliyun
@@ -137,6 +139,31 @@ class AliyunManage
     public function createCdnService(array $config)
     {
         return new Cdn(['accessId' => $config['access_id'], 'accessKey' => $config['access_key']]);
+    }
+
+    /**
+     * 创建 CloudPush服务
+     * @param array $config
+     * @return CloudPush
+     */
+    public function createCloudPushService(array $config)
+    {
+        return new CloudPush(['accessId' => $config['access_id'], 'accessKey' => $config['access_key']]);
+    }
+
+    /**
+     * 创建 CloudPush服务
+     * @param array $config
+     * @return Mns
+     */
+    public function createMnsService(array $config)
+    {
+        return new Mns([
+            'endPoint' => $config['endpoint'],
+            'accessId' => $config['access_id'],
+            'accessKey' => $config['access_key'],
+            'securityToken' => $config['securityToken'] ?? null,
+        ]);
     }
 
     /**
