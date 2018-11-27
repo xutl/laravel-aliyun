@@ -12,7 +12,8 @@ use XuTL\Aliyun\BaseService;
 use XuTL\Aliyun\RpcStack;
 
 /**
- * Class CDN
+ * CDN 服务
+ *
  * 服务操作
  * @method openCdnService(array $params) 开通CDN服务
  * @method describeCdnService() 查询服务状态
