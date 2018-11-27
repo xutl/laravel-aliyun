@@ -34,6 +34,9 @@ class CdnRefreshObjectCachesJob implements ShouldQueue
      */
     public $urls;
 
+    /**
+     * @var string 内容类型
+     */
     public $objectType;
 
     /**
@@ -49,7 +52,29 @@ class CdnRefreshObjectCachesJob implements ShouldQueue
         } else {
             $this->urls = $urls;
         }
+        foreach ($this->urls as $key => $url) {
+            $url = $this->parseUrl($url);
+            $this->urls[$key] = $url;
+        }
+
         $this->objectType = $objectType;
+    }
+
+    public function parseUrl($url)
+    {
+        $u = parse_url($url);
+        if ($u) {
+            $url = $u['host'];
+            if (!isset($u['path'])) {
+                $u['path'] = '/';
+            }
+            $url = $url . $u['path'];
+            if (isset($u['query'])) {
+                $url = $url . $u['query'];
+            }
+            return $url;
+        }
+        return $url;
     }
 
     /**
@@ -64,7 +89,7 @@ class CdnRefreshObjectCachesJob implements ShouldQueue
             /** @var \XuTL\Aliyun\Services\Cdn $cdn */
             $cdn = Aliyun::get('cdn');
             $cdn->RefreshObjectCaches([
-                'ObjectPath' => implode('\n', $this->urls)
+                'ObjectPath' => implode("\n", $this->urls)
             ]);
         } catch (\Exception $exception) {
 
