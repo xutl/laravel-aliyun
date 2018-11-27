@@ -8,17 +8,16 @@
 namespace XuTL\Aliyun\Jobs;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use XuTL\Aliyun\Aliyun;
 
 /**
- * CDN 资源刷新
+ * Cdn资源预热
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class CdnRefreshObjectCachesJob implements ShouldQueue
+class CdnPushObjectCacheJob
 {
     use Dispatchable, InteractsWithQueue, Queueable;
 
@@ -35,17 +34,17 @@ class CdnRefreshObjectCachesJob implements ShouldQueue
     public $urls;
 
     /**
-     * @var string 内容类型
+     * @var string 内容区域
      */
-    public $objectType;
+    public $area;
 
     /**
      * Create a new job instance.
      *
      * @param string|array $urls
-     * @param $objectType
+     * @param string $area
      */
-    public function __construct($urls, $objectType = 'File')
+    public function __construct($urls, $area = 'domestic')
     {
         if (is_string($urls)) {
             $this->urls = [$urls];
@@ -57,7 +56,7 @@ class CdnRefreshObjectCachesJob implements ShouldQueue
             $this->urls[$key] = $url;
         }
 
-        $this->objectType = $objectType;
+        $this->area = $area;
     }
 
     public function parseUrl($url)
@@ -88,9 +87,9 @@ class CdnRefreshObjectCachesJob implements ShouldQueue
         try {
             /** @var \XuTL\Aliyun\Services\Cdn $cdn */
             $cdn = Aliyun::get('cdn');
-            $cdn->RefreshObjectCaches([
+            $cdn->PushObjectCache([
                 'ObjectPath' => implode("\n", $this->urls),
-                'ObjectType' => $this->objectType,
+                'Area' => $this->area
             ]);
         } catch (\Exception $exception) {
 
