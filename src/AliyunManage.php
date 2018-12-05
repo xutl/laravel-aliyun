@@ -11,8 +11,10 @@ use Closure;
 use InvalidArgumentException;
 use XuTL\Aliyun\Services\Cdn;
 use XuTL\Aliyun\Services\CloudPush;
+use XuTL\Aliyun\Services\Dm;
 use XuTL\Aliyun\Services\Dns;
 use XuTL\Aliyun\Services\Domain;
+use XuTL\Aliyun\Services\HttpDns;
 use XuTL\Aliyun\Services\Mns;
 
 /**
@@ -193,6 +195,32 @@ class AliyunManage
     public function createDomainService(array $config)
     {
         return new Domain([
+            'accessId' => $config['access_id'],
+            'accessKey' => $config['access_key'],
+        ]);
+    }
+
+    /**
+     * 创建 HttpDns 服务
+     * @param array $config
+     * @return HttpDns
+     */
+    public function createHttpDnsService(array $config)
+    {
+        return new HttpDns([
+            'accessId' => $config['access_id'],
+            'accessKey' => $config['access_key'],
+        ]);
+    }
+
+    /**
+     * 创建 Dm 服务
+     * @param array $config
+     * @return Dm
+     */
+    public function createDmService(array $config)
+    {
+        return new Dm([
             'accessId' => $config['access_id'],
             'accessKey' => $config['access_key'],
         ]);
