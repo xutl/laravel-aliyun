@@ -17,6 +17,16 @@ return [
             'access_key' => env('ALIYUN_ACCESS_KEY'),
             'securityToken' => null
         ],
+        'dns' => [
+            'driver' => 'dns',
+            'access_id' => env('ALIYUN_ACCESS_ID'),
+            'access_key' => env('ALIYUN_ACCESS_KEY'),
+        ],
+        'domain' => [
+            'driver' => 'domain',
+            'access_id' => env('ALIYUN_ACCESS_ID'),
+            'access_key' => env('ALIYUN_ACCESS_KEY')
+        ],
     ],
 
 ];
