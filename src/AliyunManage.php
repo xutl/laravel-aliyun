@@ -11,6 +11,7 @@ use Closure;
 use InvalidArgumentException;
 use XuTL\Aliyun\Services\Cdn;
 use XuTL\Aliyun\Services\CloudPush;
+use XuTL\Aliyun\Services\Dns;
 use XuTL\Aliyun\Services\Mns;
 
 /**
@@ -167,6 +168,20 @@ class AliyunManage
             'accessId' => $config['access_id'],
             'accessKey' => $config['access_key'],
             'securityToken' => $config['securityToken'] ?? null,
+        ]);
+    }
+
+    /**
+     * 创建 DNS 服务
+     * @param array $config
+     * @return Dns
+     */
+    public function createDnsService(array $config)
+    {
+        return new Dns([
+            'endpoint' => $config['endpoint'],
+            'accessId' => $config['access_id'],
+            'accessKey' => $config['access_key'],
         ]);
     }
 
