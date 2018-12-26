@@ -12,10 +12,12 @@ return [
         ],
         'mns' => [
             'driver' => 'mns',
-            'endpoint' => 'http://132456.mns.cn-hangzhou.aliyuncs.com/',
+            'endpoint' => env('ALIYUN_MNS_ENDPOINT', ''),
             'access_id' => env('ALIYUN_ACCESS_ID'),
             'access_key' => env('ALIYUN_ACCESS_KEY'),
-            'securityToken' => null
+            'securityToken' => null,
+			'defaultTopic' => 'test',
+			'defaultQueue' => 'test'
         ],
         'cloudpush' => [
             'driver' => 'cloudPush',
