@@ -16,8 +16,8 @@ return [
             'access_id' => env('ALIYUN_ACCESS_ID'),
             'access_key' => env('ALIYUN_ACCESS_KEY'),
             'securityToken' => null,
-			'defaultTopic' => 'test',
-			'defaultQueue' => 'test'
+            'default_topic' => 'test',
+            'default_queue' => 'test'
         ],
         'cloudpush' => [
             'driver' => 'cloudPush',

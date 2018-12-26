@@ -171,6 +171,8 @@ class AliyunManage
             'accessId' => $config['access_id'],
             'accessKey' => $config['access_key'],
             'securityToken' => $config['securityToken'] ?? null,
+            'defaultTopic' => $config['default_topic'],
+            'defaultQueue' => $config['default_queue']
         ]);
     }
 
