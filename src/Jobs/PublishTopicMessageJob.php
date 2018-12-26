@@ -67,8 +67,7 @@ class PublishTopicMessageJob implements ShouldQueue
     {
         /** @var \XuTL\Aliyun\Services\Mns $mns */
         $mns = Aliyun::get('mns');
-        $topic = $mns->getTopicRef($this->topic);
         $request = new PublishMessageRequest(json_encode($this->messageBody), $this->tag);
-        $topic->publishMessage($request);
+        $mns->topic()->publishMessage($request);
     }
 }
